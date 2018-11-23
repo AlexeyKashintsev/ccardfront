@@ -6,9 +6,9 @@
       <div class="columns">
         <div class="column is-2">
           <aside class="menu">
-            <a class="button is-fullwidth is-primary is-medium" href="/incidents/new">Мои данные</a>
-            <a class="button is-fullwidth is-primary is-medium" href="/incidents/new">Мои льготы</a>
-            <a class="button is-fullwidth is-primary is-medium" href="/incidents/new">История</a>
+            <router-link class="button is-fullwidth is-primary is-medium" :to="{name: 'Home'}">Мои данные</router-link>
+            <router-link class="button is-fullwidth is-primary is-medium" :to="{name: 'Privilegies'}">Мои льготы</router-link>
+            <router-link class="button is-fullwidth is-primary is-medium" :to="{name: 'History'}">История</router-link>
           </aside>
         </div>
 
