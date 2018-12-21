@@ -28,7 +28,7 @@
         </div>
         <div class="buttons">
           <button class="button" @click="$router.push({path: '/'})">Регистрация</button>
-          <button class="button" @click="$router.push({path: '/'})">Вход</button>
+          <button class="button" @click="logIn">Вход</button>
         </div>
           <a href="">Забыли пароль?</a>
       </section>
@@ -40,12 +40,27 @@
 </template>
 
 <script>
+import doAuth from '@/components/auth/doAuth';
+
 export default {
   data() {
     return {
-      email: '',
-      password: ''
+      email: 'root@root.root',
+      password: 'pswd'
     }
+  },
+  methods: {
+    logIn: function(){
+      doAuth(this.email, this.password).then(r => {
+        $router.push({path: '/'})
+        // this.$router.go({
+        //   path: this.$route.path,
+        //   force: true
+        // });
+      }).catch(err => {
+        
+      });
+    },
   }
 }
 </script>
