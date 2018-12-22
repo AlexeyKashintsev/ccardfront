@@ -9,19 +9,20 @@
       <div class="card-content">
         <div class="block">
           <b-field label="Логин">
-            <b-input>
+            <b-input v-model="login">
             </b-input>
           </b-field>
           <b-field label="Email">
-            <b-input></b-input>
+            <b-input v-model="email"></b-input>
           </b-field>
           <b-field label="Снилс">
-            <b-input
+            <b-input v-model="snils"
               v-cleave="masks.snils">
             </b-input>
           </b-field>
           <b-field label="Телефон">
             <b-input
+              v-model="phone"
               v-cleave="masks.phone">
             </b-input>
           </b-field>
@@ -72,6 +73,12 @@
         directives: { cleave },
         data() {
           return {
+            fields: {
+              login: '',
+              email: '',
+              phone: '',
+              snils: ''
+            },
             checkboxCustom: true,
             value: '',
             rawValue: '',
@@ -122,6 +129,14 @@
             getRawValue(event) {
                 this.rawValue = event.target._vCleave.getRawValue()
             }
+        },
+        created() {
+          this.$API.get('user_data').then(r => {r.data
+            this.login = r.data.login;
+            this.email = r.data.email;
+            this.phone = r.data.phone;
+            this.snils = r.data.snils;
+          })
         }
     }
 </script>
