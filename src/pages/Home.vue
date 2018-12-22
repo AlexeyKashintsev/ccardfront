@@ -73,12 +73,10 @@
         directives: { cleave },
         data() {
           return {
-            fields: {
               login: '',
               email: '',
               phone: '',
-              snils: ''
-            },
+              snils: '',
             checkboxCustom: true,
             value: '',
             rawValue: '',
