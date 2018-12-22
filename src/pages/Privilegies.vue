@@ -1,18 +1,18 @@
 <template>
   <div class="block">
-    <b-table class="my-table" :data="dataCard" :columns="columnsCard">
+    <b-table class="my-table" :data="benefits" :columns="columnsCard">
       <template slot-scope="props">
-        <b-table-column field="number_card">
-          {{ props.row.number_card }}
+        <b-table-column field="benefit_name">
+          {{ props.row.benefit_name }}
         </b-table-column>
-        <b-table-column field="date">
-          {{ props.row.date }}
+        <b-table-column field="benefit_region">
+          {{ props.row.benefit_region }}
         </b-table-column>
-        <b-table-column field="bank">
-          {{ props.row.bank }}
+        <b-table-column field="benefit_count">
+          {{ props.row.benefit_count }}
         </b-table-column>
-        <b-table-column field="status">
-          {{ props.row.date }}
+        <b-table-column field="benefit_end_date">
+          {{ props.row.benefit_end_date }}
         </b-table-column>
       </template>
     </b-table>
@@ -23,30 +23,31 @@
 export default {
   data() {
     return {
-      dataCard: [
-        { 'id': 1, 'number_card': 'АКЦИЯ: Бесплатный проезд "КРЫМАВТОБУС', 'date': 'Республика Крым', 'bank': '', status: '09/12/2018' },
-        { 'id': 2, 'number_card': 'АКЦИЯ: Бесплатный проезд "КРЫМАВТОБУС', 'date': 'Республика Крым', 'bank': '3', status: '09/12/2018' },
-        { 'id': 3, 'number_card': 'АКЦИЯ: Бесплатный проезд "КРЫМАВТОБУС', 'date': 'Республика Крым', 'bank': '', status: '09/12/2018' }
-      ],
+      benefits: [],
       columnsCard: [
         {
-            field: 'number_card',
+            field: 'benefit_name',
             label: 'Наименование льготы'
         },
         {
-            field: 'date',
+            field: 'benefit_region',
             label: 'Регион действия'
         },
         {
-            field: 'bank',
+            field: 'benefit_count',
             label: 'Количество'
         },
         {
-            field: 'status',
+            field: 'benefit_end_date',
             label: 'Дата окончания действия'
         }
       ]
     }
+  },
+  created() {
+    this.$API.get('user_benefits').then(r => {
+      this.benefits = r.data;
+    })
   }
 }
 </script>
