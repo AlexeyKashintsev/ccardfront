@@ -98,9 +98,9 @@
               }
             },
             dataCard: [
-              { 'id': 1, 'number_card': '1233 56** **** **67', 'date': '09/12/2018', 'bank': 'Сбербанк', status: true },
-              { 'id': 2, 'number_card': '1233 56** **** **67', 'date': '09/12/2018', 'bank': 'Сбербанк', status: true },
-              { 'id': 3, 'number_card': '1233 56** **** **67', 'date': '09/12/2018', 'bank': 'Сбербанк', status: true }
+              // { 'id': 1, 'number_card': '1233 56** **** **67', 'date': '09/12/2018', 'bank': 'Сбербанк', status: true },
+              // { 'id': 2, 'number_card': '1233 56** **** **67', 'date': '09/12/2018', 'bank': 'Сбербанк', status: true },
+              // { 'id': 3, 'number_card': '1233 56** **** **67', 'date': '09/12/2018', 'bank': 'Сбербанк', status: true }
             ],
             columnsCard: [
               {
@@ -134,6 +134,15 @@
             this.email = r.data.email;
             this.phone = r.data.phone;
             this.snils = r.data.snils;
+
+            r.data.cards.map(card => {
+              this.dataCard.push({
+                id: card.h_number,
+                'number_card': card.h_number,
+                bank: '',
+                status: false
+              });
+            })
           })
         }
     }
