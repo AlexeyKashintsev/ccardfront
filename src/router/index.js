@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Auth from '@/pages/Auth';
 import Home from '@/pages/Home';
 import Privilegies from '@/pages/Privilegies';
 import History from '@/pages/History';
@@ -11,15 +10,7 @@ import DefaultLayout from '@/layouts/DefaultLayout'
 import AppLayout from '@/layouts/AppLayout'
 
 export default new Router({
-  routes: [,
-    {
-      path: '/auth',
-      name: 'Auth',
-      component: Auth,
-      meta: {
-        template: DefaultLayout
-      }
-    },
+  routes: [
     {
       path: '/',
       name: 'Home',

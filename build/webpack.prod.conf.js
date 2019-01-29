@@ -63,11 +63,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
+      filename: 'index.html',
       template: 'index.html',
       inject: true,
+      chunks: ['app'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -82,6 +81,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       template: 'login.html',
       filename: 'login.html',
       inject: true,
+      chunks: ['login'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -99,6 +99,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
+      chunks: ['./src/main', './src/loginPage/main'],
+      filename: 'vendor.[chunkhash].js',
       minChunks (module) {
         // any required modules inside node_modules are extracted to vendor
         return (
@@ -114,6 +116,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
+      chunks: ['./src/loginPage/main', './src/main'],
       minChunks: Infinity
     }),
     // This instance extracts shared chunks from code splitted chunks and bundles them
