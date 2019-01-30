@@ -1,46 +1,48 @@
 <template>
-  <section class="card auth-page">
-    <div class="card auth-page__modal">
-      <form id="form" name="form" action="j_security_check" method="POST" enctype="application/x-www-form-urlencoded">
-        <header class="card-header is-primary">
-          <p class="card-header-title has-background-primary has-text-white">
-            Личный кабинет пользователя
-          </p>
-        </header>
-        <section class="modal-card-body">
-          <div class="block">
-            <b-field label="Email">
-              <b-input
-                type="email"
-                :value="email"
-                name="j_username"
-                placeholder="Ваш email"
-                required>
-              </b-input>
-            </b-field>
-            <b-field label="Пароль">
-              <b-input
-                type="password"
-                :value="password"
-                name="j_password"
-                password-reveal
-                placeholder="Ваш пароль"
-                required>
-              </b-input>
-            </b-field>
-          </div>
-          <div class="buttons">
-            <button class="button" @click="$router.push({path: '/'})">Регистрация</button>
-            <button class="button" type="submit">Вход</button>
-          </div>
-            <a href="">Забыли пароль?</a>
-        </section>
-        <footer class="auth__modal-foot">
-          <img src="@/assets/logo.png">
-        </footer>
-      </form>
-    </div>
-  </section>
+  <div id="app">
+    <section class="card auth-page">
+      <div class="card auth-page__modal">
+        <form id="form" name="form" action="j_security_check" method="POST" enctype="application/x-www-form-urlencoded">
+          <header class="card-header is-primary">
+            <p class="card-header-title has-background-primary has-text-white">
+              Личный кабинет пользователя
+            </p>
+          </header>
+          <section class="modal-card-body">
+            <div class="block">
+              <b-field label="Email">
+                <b-input
+                  type="email"
+                  :value="email"
+                  name="j_username"
+                  placeholder="Ваш email"
+                  required>
+                </b-input>
+              </b-field>
+              <b-field label="Пароль">
+                <b-input
+                  type="password"
+                  :value="password"
+                  name="j_password"
+                  password-reveal
+                  placeholder="Ваш пароль"
+                  required>
+                </b-input>
+              </b-field>
+            </div>
+            <div class="buttons">
+              <button class="button" @click="$router.push({path: '/'})">Регистрация</button>
+              <button class="button" type="submit">Вход</button>
+            </div>
+              <a href="">Забыли пароль?</a>
+          </section>
+          <footer class="auth__modal-foot">
+            <img src="@/assets/logo.png">
+          </footer>
+        </form>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>

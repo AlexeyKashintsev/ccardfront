@@ -12,7 +12,7 @@ Vue.use(VeeValidate, {
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#signapp',
+  el: '#app',
   components: { App },
   template: '<App/>'
 });
