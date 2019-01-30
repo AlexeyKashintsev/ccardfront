@@ -5,30 +5,40 @@
         <b-field> Фильтр по дате </b-field>
         <b-field>
           <b-datepicker
+            v-model="periodStart"
             icon="calendar-today">
           </b-datepicker>
         </b-field>
         <b-field> - </b-field>
         <b-field>
           <b-datepicker
+            v-model="periodEnd"
             icon="calendar-today">
           </b-datepicker>
+        </b-field>
+        <b-field>
+          <button class="button is-primary" @click="search()"><b-icon icon="magnify"></b-icon></button>
         </b-field>
       </b-field>
     </div>
     <b-table class="my-table" :data="dataCard" :columns="columnsCard">
       <template slot-scope="props">
-        <b-table-column field="number_card">
-          {{ props.row.number_card }}
+        <b-table-column field="commodity">
+          {{ props.row.commodity }}
         </b-table-column>
-        <b-table-column field="date">
-          {{ props.row.date }}
+        <b-table-column field="provider">
+          {{ props.row.provider }}
         </b-table-column>
-        <b-table-column field="bank">
-          {{ props.row.bank }}
+        <b-table-column field="dateTime">
+          {{ props.row.dateTime | formatDate }}
         </b-table-column>
-        <b-table-column field="status">
-          {{ props.row.date }}
+        <b-table-column field="benefit">
+          <b-checkbox :value="props.row.benefit && props.row.benefit.hasOwnProperty('mszName')" disabled></b-checkbox>
+        </b-table-column>
+        <b-table-column field="cart">
+          <div v-for="row in props.row.cart" :key="row.id">
+            - {{ row.itemName }}
+          </div>
         </b-table-column>
       </template>
     </b-table>
@@ -36,32 +46,71 @@
 </template>
 
 <script>
+import { format, isValid, startOfDay, isBefore, isEqual, endOfDay } from 'date-fns'
 export default {
   data() {
     return {
-      dataCard: [
-        { 'id': 1, 'number_card': 'Оплата проезда', 'date': 'Крым троллейбус', 'bank': '09/12/2018', status: 'Маршрут 4а' },
-        { 'id': 2, 'number_card': 'Покупка лекарств', 'date': 'Социальная', 'bank': '09/12/2018', status: '' },
-        { 'id': 3, 'number_card': 'Оплата проезда', 'date': 'Крым троллейбус', 'bank': '09/12/2018', status: 'Маршрут 4а' }
-      ],
+      periodStart: new Date(),
+      periodEnd: new Date(),
+      recordsLimit: 20,
+      page: 1,
+      dataCard: [],
       columnsCard: [
         {
-            field: 'number_card',
+            field: 'commodity',
             label: 'Тип'
         },
         {
-            field: 'date',
+            field: 'provider',
             label: 'Организация'
         },
         {
-            field: 'bank',
+            field: 'dateTime',
             label: 'Дата/Время'
         },
         {
-            field: 'status',
+            field: 'benefit',
+            label: 'Льготы'
+        },
+        {
+            field: 'cart',
             label: 'Дополнительно'
         }
       ]
+    }
+  },
+  filters: {
+    formatDate(value) {
+      if (!value || !isValid(new Date(value))) return '';
+
+      return format(value, 'DD/MM/YYYY');
+    }
+  },
+  methods: {
+    search() {
+      this.periodStart = startOfDay(this.periodStart); 
+      this.periodEnd = endOfDay(this.periodEnd);
+
+      if (!this.checkDate()) return;
+
+      let post = {
+        period_start: this.periodStart ? this.periodStart.toISOString() : '',
+        period_end: this.periodEnd ? this.periodEnd.toISOString() : '',
+        records_limit: this.recordsLimit,
+        page: this.page
+      }
+
+      this.$API.post('user_history', post).then(r => {
+        this.dataCard = r.data;
+      });
+    },
+    checkDate() {
+      if (!isBefore(this.periodStart, this.periodEnd)) return false;
+
+      return true;
+    },
+    validateDate(value) {
+      return !!(!value || !isValid(new Date(value)));
     }
   }
 }

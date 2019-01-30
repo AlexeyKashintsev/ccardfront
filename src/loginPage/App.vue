@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="signapp">
     <section class="card auth-page">
       <div class="card auth-page__modal">
         <form id="form" name="form" action="j_security_check" method="POST" enctype="application/x-www-form-urlencoded">
