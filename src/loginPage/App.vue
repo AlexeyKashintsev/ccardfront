@@ -10,12 +10,12 @@
           </header>
           <section class="modal-card-body">
             <div class="block">
-              <b-field label="Email">
+              <b-field label="Login">
                 <b-input
-                  type="email"
-                  :value="email"
+                  type="login"
+                  :value="login"
                   name="j_username"
-                  placeholder="Ваш email"
+                  placeholder="Ваш логин"
                   required>
                 </b-input>
               </b-field>
@@ -54,13 +54,13 @@ export default {
   },
   data() {
     return {
-      email: 'root@root.root',
+      login: 'root@root.root',
       password: 'pswd'
     }
   },
   methods: {
     logIn: function(){
-      doAuth(this.email, this.password).then(r => {
+      doAuth(this.login, this.password).then(r => {
         document.location = '/'
       }).catch(err => {
 
@@ -112,7 +112,7 @@ html,
 body {
   height: 100%;
 }
-#app {
+#signapp {
   display: flex;
   min-height: 100%;
 }
