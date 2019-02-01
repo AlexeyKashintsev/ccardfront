@@ -12,7 +12,7 @@
             <div class="block">
               <b-field label="Login">
                 <b-input
-                  type="login"
+                  type="text"
                   :value="login"
                   name="j_username"
                   placeholder="Ваш логин"
