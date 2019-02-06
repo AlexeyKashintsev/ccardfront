@@ -100,7 +100,7 @@ export default {
         page: this.page
       }
 
-      this.$API.get('user_history', post).then(r => {
+      this.$API.get('user_history', { params: post }).then(r => {
         this.dataCard = r.data;
       });
     },
