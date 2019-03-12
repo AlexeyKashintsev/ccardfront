@@ -3,7 +3,7 @@ import axios from '@/common/axios'
 const benefits = {
   namespaced: true,
   state: {
-    benefits,
+    benefits: null,
   },
   mutations: {
     setBenefits(state, data) {

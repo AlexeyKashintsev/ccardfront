@@ -3,8 +3,8 @@ import axios from '@/common/axios'
 const user = {
   namespaced: true,
   state: {
-    user,
-    card,
+    user: null,
+    card: null,
   },
   getters: {
     login(state) {

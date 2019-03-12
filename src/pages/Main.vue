@@ -102,7 +102,7 @@ export default {
   methods: {
     getRawValue(event) {
       this.rawValue = event.target._vCleave.getRawValue()
-    }
+    },
   },
   mounted() {
     this.$store.dispatch('user/getUser')

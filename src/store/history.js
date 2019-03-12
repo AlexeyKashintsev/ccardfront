@@ -3,7 +3,7 @@ import axios from '@/common/axios'
 const history = {
   namespaced: true,
   state: {
-    history,
+    history: null,
   },
   mutations: {
     setHistory(state, data) {

@@ -44,8 +44,8 @@ export default {
   watch: {
     cardNumber(val) {
       this.cardInfo = new CardInfo(val, {
-        banksLogosPath: 'img/banks-logos/',
-        brandsLogosPath: 'img/brands-logos/',
+        banksLogosPath: 'static/img/banks-logos/',
+        brandsLogosPath: 'static/img/brands-logos/',
         brandLogoPolicy: 'colored',
       })
     },
