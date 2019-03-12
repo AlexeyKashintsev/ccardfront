@@ -1,147 +1,119 @@
 <template>
-  <div id="signapp">
-    <section class="card auth-page">
-      <div class="card auth-page__modal">
-        <form id="form" name="form" action="j_security_check" method="POST" enctype="application/x-www-form-urlencoded">
-          <header class="card-header is-primary">
-            <p class="card-header-title has-background-primary has-text-white">
-              Личный кабинет пользователя
-            </p>
-          </header>
-          <section class="modal-card-body">
-            <div class="block">
-              <b-field label="Login">
-                <b-input
-                  type="text"
-                  :value="login"
-                  name="j_username"
-                  placeholder="Ваш логин"
-                  required>
-                </b-input>
-              </b-field>
-              <b-field label="Пароль">
-                <b-input
-                  type="password"
-                  :value="password"
-                  name="j_password"
-                  password-reveal
-                  placeholder="Ваш пароль"
-                  required>
-                </b-input>
-              </b-field>
+  <v-app>
+    <v-container fluid fill-height class="login-bg">
+      <v-layout flex align-center justify-center>
+        <div elevation-6 class="login-card">
+          <v-toolbar class="primary">
+            <v-toolbar-title class="white--text"><h4>Личный кабинет пользователя</h4></v-toolbar-title>
+          </v-toolbar>
+          <v-card>
+            <v-card-text class="pt-4">
+              <div>
+                <v-form v-model="valid" action="j_security_check" method="POST" enctype="application/x-www-form-urlencoded" ref="form">
+                  <v-text-field
+                    label="Логин"
+                    v-model="login"
+                    :rules="loginRules"
+                    name="j_username"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="Пароль"
+                    v-model="password"
+                    name="j_password"
+                    :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                    @click:append="() => (e1 = !e1)"
+                    :type="e1 ? 'text' : 'password'"
+                    :rules="passwordRules"
+                    required
+                  ></v-text-field>
+                  <v-layout>
+                    <v-btn 
+                      @click="submit"
+                      :class=" { 'primary white--text' : valid, disabled: !valid }"
+                    >Вход</v-btn>
+                  </v-layout>
+                  
+                  <v-layout>
+                    <a>Забыли пароль?</a>
+                  </v-layout>
+                </v-form>
+              </div>
+            </v-card-text>
+                  
+            <div class="auth__modal-foot">
+              <img src="@/assets/logo.png">
             </div>
-            <div class="buttons">
-              <button class="button" @click="$router.push({path: '/'})">Регистрация</button>
-              <button class="button" type="submit">Вход</button>
-            </div>
-              <a href="">Забыли пароль?</a>
-          </section>
-          <footer class="auth__modal-foot">
-            <img src="@/assets/logo.png">
-          </footer>
-        </form>
-      </div>
-    </section>
-  </div>
+          </v-card>
+        </div>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
-import doAuth from '@/components/auth/doAuth';
-
 export default {
-  name: 'Signapp',
-  computed: {
-  },
-  data() {
+  data () {
     return {
-      login: 'root@root.root',
-      password: 'pswd'
+      valid: false,
+      e1: false,
+      password: '',
+      passwordRules: [
+        (v) => !!v || 'Заполните поле',
+        (v) => v.length > 3 || 'Поле пароль должно содержать более 3 символов',
+        (v) => v.length < 100 || 'Поле пароль должно содержать менее 100 символов',
+      ],
+      login: '',
+      loginRules: [
+        (v) => !!v || 'Заполните поле',
+        (v) => v.length > 3 || 'Поле логин должно содержать более 3 символов',
+        (v) => v.length < 50 || 'Поле логин должно содержать менее 50 символов',
+        //(v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ],
     }
   },
   methods: {
-    logIn: function(){
-      doAuth(this.login, this.password).then(r => {
-        document.location = '/'
-      }).catch(err => {
-
-      });
+    submit() {
+      this.$refs.form.$el.submit()
     },
-  }
+  },
 }
 </script>
 
-<style <style lang="scss">
-@import "~bulma/sass/utilities/_all";
-
-// Set your colors
-$primary: #05a4c0;
-$primary-invert: findColorInvert($primary);
-$twitter: #d7ecfb;
-$twitter-invert: findColorInvert($twitter);
-
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
-$colors: (
-    "white": ($white, $black),
-    "black": ($black, $white),
-    "light": ($light, $light-invert),
-    "dark": ($dark, $dark-invert),
-    "primary": ($primary, $primary-invert),
-    "info": ($info, $info-invert),
-    "success": ($success, $success-invert),
-    "warning": ($warning, $warning-invert),
-    "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
-);
-
-// Links
-// $link: $primary;
-// $link-invert: $primary-invert;
-// $link-focus-border: $primary;
-
-// Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
-
-*, *::before, *::after {
-  box-sizing: border-box;
+<style>
+input,
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 1000px white inset !important;
 }
-html {
-  overflow-y: auto;
+.photoCredit {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
 }
-html,
-body {
-  height: 100%;
+.login-bg {
+  background-size: cover;
 }
-#signapp {
-  display: flex;
-  min-height: 100%;
-}
-.body-content {
-  flex: 1 0 auto;
-}
-
-.auth-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ccc;
-  min-height: 100%;
+.login-card {
   width: 100%;
+  max-width: 460px;
+}
+.auth__modal-foot {
+  background-color: #d7ecfb;
   padding: 16px;
-
-  &__modal {
-    max-width: 100%;
-    width: 460px;
-  }
-
-  .auth__modal-foot {
-    background-color: #d7ecfb;
-    padding: 16px;
-    margin-top: 20px;
-
-    img {
-      height: 70px;
-    }
-  }
+  margin-top: 20px;
+}
+.auth__modal-foot img {
+  height: 70px;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  box-shadow: 0 0 0 1000px white inset;
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  box-shadow: 0 0 0 1000px white inset;
 }
 </style>

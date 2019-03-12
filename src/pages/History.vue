@@ -1,117 +1,163 @@
 <template>
-  <div class="block">
-    <div class="block">
-      <b-field grouped>
-        <b-field> Фильтр по дате </b-field>
-        <b-field>
-          <b-datepicker
+  <v-flex>
+    <h1>История</h1>
+    <v-layout row wrap align-center>
+      Фильтр по дате
+      <v-flex px-2 style="max-width:180px">
+        <v-menu
+          v-model="periodStartMenu"
+          :close-on-content-click="false"
+          max-width="290"
+          lazy
+          transition="scale-transition"
+          offset-y
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              :value="periodStartFormatted"
+              readonly
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
             v-model="periodStart"
-            icon="calendar-today">
-          </b-datepicker>
-        </b-field>
-        <b-field> - </b-field>
-        <b-field>
-          <b-datepicker
+            @change="periodStartMenu = false"
+          ></v-date-picker>
+        </v-menu>
+      </v-flex>
+      -
+      <v-flex px-2 style="max-width:180px">
+        <v-menu
+          v-model="periodEndMenu"
+          :close-on-content-click="false"
+          max-width="290"
+          lazy
+          transition="scale-transition"
+          offset-y
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              :value="periodEndFormatted"
+              readonly
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
             v-model="periodEnd"
-            icon="calendar-today">
-          </b-datepicker>
-        </b-field>
-        <b-field>
-          <button class="button is-primary" @click="search()"><b-icon icon="magnify"></b-icon></button>
-        </b-field>
-      </b-field>
-    </div>
-    <b-table class="my-table" :data="dataCard" :columns="columnsCard">
-      <template slot-scope="props">
-        <b-table-column field="commodity">
-          {{ props.row.commodity }}
-        </b-table-column>
-        <b-table-column field="provider">
-          {{ props.row.provider }}
-        </b-table-column>
-        <b-table-column field="dateTime">
-          {{ props.row.dateTime | formatDate }}
-        </b-table-column>
-        <b-table-column field="benefit">
-          <b-checkbox :value="props.row.benefit && props.row.benefit.hasOwnProperty('mszName')" disabled></b-checkbox>
-        </b-table-column>
-        <b-table-column field="cart">
-          <div v-for="row in props.row.cart" :key="row.id">
-            - {{ row.itemName }}
+            @change="periodEndMenu = false"
+          ></v-date-picker>
+        </v-menu>
+      </v-flex>
+      <v-btn small @click="search">
+        <v-icon dark>search</v-icon>
+      </v-btn>
+    </v-layout>
+
+    <v-data-table
+      :headers="headers"
+      :items="history"
+      class="elevation-1"
+      hide-actions
+    >
+      <template v-slot:items="props">
+        <td>{{ props.item.commodity }}</td>
+        <td>{{ props.item.provider }}</td>
+        <td>{{ props.item.dateTime | formatDate }}</td>
+        <td>{{ props.item.benefit && props.item.benefit.mszName }}</td>
+        <td>
+          <div v-for="item in props.item.cart" :key="item.id">
+            - {{ item.itemName }}
           </div>
-        </b-table-column>
+        </td>
       </template>
-    </b-table>
-  </div>
+    </v-data-table>
+  </v-flex>
 </template>
 
 <script>
-import { format, isValid, startOfDay, isBefore, isEqual, endOfDay } from 'date-fns'
+import { mapState, } from 'vuex'
+import { format, isValid, startOfDay, isBefore, isEqual, endOfDay, } from 'date-fns'
 export default {
   data() {
     return {
-      periodStart: new Date(),
-      periodEnd: new Date(),
+      periodStart: new Date().toISOString().substr(0, 10),
+      periodEnd: new Date().toISOString().substr(0, 10),
+      periodEndMenu: false,
+      periodStartMenu: false,
       recordsLimit: 20,
       page: 1,
-      dataCard: [],
-      columnsCard: [
+      menu: false,
+      modal: false,
+      headers: [
         {
-            field: 'commodity',
-            label: 'Тип'
+          text: 'Тип',
+          value: 'commodity',
+          sortable: false,
         },
         {
-            field: 'provider',
-            label: 'Организация'
+          text: 'Организация',
+          value: 'provider',
         },
         {
-            field: 'dateTime',
-            label: 'Дата/Время'
+          text: 'Дата/Время',
+          value: 'dateTime',
         },
         {
-            field: 'benefit',
-            label: 'Льготы'
+          text: 'Льготы',
+          value: 'benefit',
         },
         {
-            field: 'cart',
-            label: 'Дополнительно'
-        }
-      ]
+          text: 'Дополнительно',
+          value: 'cart',
+        },
+      ],
     }
+  },
+  computed: {
+    ...mapState({
+      history: state => state.history.history,
+    }),
+    periodStartFormatted() {
+      return this.periodStart ? format(this.periodStart, 'DD-MM-YYYY') : ''
+    },
+    periodEndFormatted() {
+      return this.periodStart ? format(this.periodEnd, 'DD-MM-YYYY') : ''
+    },
   },
   filters: {
     formatDate(value) {
-      if (!value || !isValid(new Date(value))) return '';
+      if (!value || !isValid(new Date(value))) return ''
 
-      return format(value, 'DD/MM/YYYY');
-    }
+      return format(value, 'DD/MM/YYYY')
+    },
   },
   methods: {
     search() {
-      this.periodStart = startOfDay(this.periodStart); 
-      this.periodEnd = endOfDay(this.periodEnd);
-
-      if (!this.checkDate()) return;
+      let periodStart = startOfDay(this.periodStart)
+      let periodEnd = endOfDay(this.periodEnd)
+      
+      if (!this.checkDate(periodStart, periodEnd)) return
 
       let post = {
-        period_start: this.periodStart ? this.periodStart.toISOString() : '',
-        period_end: this.periodEnd ? this.periodEnd.toISOString() : '',
+        period_start: periodStart.toISOString(),
+        period_end: periodEnd.toISOString(),
         records_limit: this.recordsLimit,
-        page: this.page
+        page: this.page,
       }
 
-      this.$API.get('user_history', { params: post }).then(r => {
-        this.dataCard = r.data;
-      });
+      this.$store.dispatch('history/getHistory', post)
     },
-    checkDate() {
-      if (!isBefore(this.periodStart, this.periodEnd)) return false;
+    checkDate(periodStart, periodEnd) {
+      if (!isBefore(periodStart, periodEnd)) return false
 
-      return true;
+      return true
     },
     validateDate(value) {
-      return !!(!value || !isValid(new Date(value)));
-    }
-  }
+      return !!(!value || !isValid(new Date(value)))
+    },
+  },
+  mounted() {
+    this.search()
+  },
 }
 </script>

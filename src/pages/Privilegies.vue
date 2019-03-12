@@ -1,53 +1,55 @@
 <template>
-  <div class="block">
-    <b-table class="my-table" :data="benefits" :columns="columnsCard">
-      <template slot-scope="props">
-        <b-table-column field="benefit_name">
-          {{ props.row.benefit_name }}
-        </b-table-column>
-        <b-table-column field="benefit_region">
-          {{ props.row.benefit_region }}
-        </b-table-column>
-        <b-table-column field="benefit_count">
-          {{ props.row.benefit_count }}
-        </b-table-column>
-        <b-table-column field="benefit_end_date">
-          {{ props.row.benefit_end_date }}
-        </b-table-column>
+  <v-flex>
+    <h1>Мои льготы</h1>
+    <v-data-table
+      :headers="headers"
+      :items="benefits"
+      class="elevation-1"
+      hide-actions
+    >
+      <template v-slot:items="props">
+        <td>{{ props.item.benefit_name }}</td>
+        <td>{{ props.item.benefit_region }}</td>
+        <td>{{ props.item.benefit_count }}</td>
+        <td>{{ props.item.benefit_end_date }}</td>
       </template>
-    </b-table>
-  </div>
+    </v-data-table>
+  </v-flex>
 </template>
 
 <script>
+import { mapState, } from 'vuex'
 export default {
   data() {
     return {
-      benefits: [],
-      columnsCard: [
+      headers: [
         {
-            field: 'benefit_name',
-            label: 'Наименование льготы'
+          text: 'Наименование льготы',
+          value: 'benefit_name',
+          sortable: false,
         },
         {
-            field: 'benefit_region',
-            label: 'Регион действия'
+          text: 'Регион действия',
+          value: 'benefit_region',
         },
         {
-            field: 'benefit_count',
-            label: 'Количество'
+          text: 'Количество',
+          value: 'benefit_count',
         },
         {
-            field: 'benefit_end_date',
-            label: 'Дата окончания действия'
-        }
-      ]
+          text: 'Дата окончания действия',
+          value: 'benefit_end_date',
+        },
+      ],
     }
   },
+  computed: {
+    ...mapState({
+      benefits: state => state.benefits.benefits,
+    }),
+  },
   created() {
-    this.$API.get('user_benefits').then(r => {
-      this.benefits = r.data;
-    })
-  }
+    return this.$store.dispatch('benefits/getBenefits')
+  },
 }
 </script>
