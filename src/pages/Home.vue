@@ -81,10 +81,10 @@
             value: '',
             rawValue: '',
             masks: {
-              snils: { 
+              snils: {
                 delimiters: ['-', '-', ' '],
                 blocks: [3, 3, 3, 2],
-                numericOnly: true 
+                numericOnly: true
               },
               phone: {
                 delimiters: ['+7 (', ')', ' ', '-', '-'],

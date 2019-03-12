@@ -83,24 +83,24 @@ export default {
     formatDate(value) {
       if (!value || !isValid(new Date(value))) return '';
 
-      return format(value, 'DD/MM/YYYY');
+      return format(value, 'DD/MM/YYYY mm:hh');
     }
   },
   methods: {
     search() {
-      this.periodStart = startOfDay(this.periodStart); 
+      this.periodStart = startOfDay(this.periodStart);
       this.periodEnd = endOfDay(this.periodEnd);
 
       if (!this.checkDate()) return;
 
-      let post = {
+      let qParams = {
         period_start: this.periodStart ? this.periodStart.toISOString() : '',
         period_end: this.periodEnd ? this.periodEnd.toISOString() : '',
         records_limit: this.recordsLimit,
-        page: this.page
-      }
+        page: (this.page - 1) * this.recordsLimit
+      };
 
-      this.$API.get('user_history', { params: post }).then(r => {
+      this.$API.get('user_history', { params: qParams }).then(r => {
         this.dataCard = r.data;
       });
     },
@@ -112,6 +112,20 @@ export default {
     validateDate(value) {
       return !!(!value || !isValid(new Date(value)));
     }
+  },
+  created() {
+    if (!this.checkDate()) return;
+
+    let qParams = {
+      period_start: startOfDay(new Date),
+      period_end: endOfDay(new Date),
+      records_limit: 20,
+      page: 0
+    };
+
+    this.$API.get('user_history', {params: qParams}).then(r => {
+      this.dataCard = r.data;
+    })
   }
 }
 </script>
