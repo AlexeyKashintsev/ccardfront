@@ -4,11 +4,9 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   assetsDir: 'static',
-  
+  publicPath: 'lk',
   pages: {
     index: {
       entry: 'src/main.js',
