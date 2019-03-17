@@ -1,43 +1,46 @@
 <template>
-  <div class="home">
-    <h1>Данные пользователя</h1>
-
+  <div class="flex">
+    <h1>Мои данные</h1>
     <v-form
       ref="form"
+      v-model="valid"
     >
       <v-text-field
-        :value="$store.getters['user/name']"
+        v-model="name"
         label="ФИО"
-        readonly
+        :rules="nameRules"
+        required
       ></v-text-field>
       <v-text-field
-        :value="$store.getters['user/login']"
+        v-model="login"
         label="Логин"
-        readonly
+        required
       ></v-text-field>
       <v-text-field
-        :value="$store.getters['user/email']"
-        label="Email"
-        readonly
+        v-model="email"
+        label="E-mail"
+        :rules="emailRules"
+        required
       ></v-text-field>
       <v-text-field
-        :value="$store.getters['user/snils']"
+        v-model="snils"
         label="Снилс"
-        readonly
       ></v-text-field>
       <v-text-field
-        :value="$store.getters['user/phone']"
+        v-model="phone"
         label="Телефон"
-        readonly
       ></v-text-field>
-    </v-form>
 
-    <UserCards v-if="card" />
+      <v-btn 
+        @click="save"
+        :disabled="!valid"
+        color="success"
+      >Сохранить</v-btn>
+    </v-form>
   </div>
 </template>
 
 <script>
-import UserCards from '@/components/UserCards.vue';
 import Cleave from 'cleave.js'
 
 import { mapState, } from 'vuex'
@@ -60,11 +63,8 @@ const cleave = {
 }
 
 export default {
-  name: 'home',
+  name: 'Profile',
   directives: { cleave, },
-  components: {
-    UserCards,
-  },
   data() {
     return {
       name: '',
@@ -72,7 +72,6 @@ export default {
       email: '',
       phone: '',
       snils: '',
-      checkboxCustom: true,
       value: '',
       rawValue: '',
       masks: {
@@ -86,33 +85,43 @@ export default {
           blocks: [0, 3, 0, 3, 3, 2,],
           numericOnly: true,
         },
-        email: {
-          delimiters: ['.', '.', '-',],
-          blocks: [3, 3, 3, 2,],
-          numericOnly: true,
-        },
       },
+      valid: false,
+      nameRules: [
+        v => !!v || 'ФИО обязательно',
+        v => (v && v.length >= 5) || 'ФИО не может быть меньше 5 символов',
+      ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
     }
-  },
-  computed: {
-    ...mapState({
-      card: state => state.user.card,
-    }),
   },
   methods: {
     getRawValue(event) {
       this.rawValue = event.target._vCleave.getRawValue()
     },
+    save() {
+      if (!this.valid) return
+
+      let post = {
+        name: this.name,
+        login: this.login,
+        email: this.email,
+        snils: this.snils,
+        phone: this.phone,
+      }
+      this.$store.dispatch('user/setUser', post)
+    },
   },
   mounted() {
-    //this.$store.dispatch('user/getUser')
-    this.$store.dispatch('user/getCard')
+    this.$store.dispatch('user/getUser')
+    
+    this.name = this.$store.getters['user/name']
+    this.login = this.$store.getters['user/login']
+    this.email = this.$store.getters['user/email']
+    this.snils = this.$store.getters['user/snils']
+    this.phone = this.$store.getters['user/phone']
   },
 };
 </script>
-
-<style>
-  .home {
-    width: 100%;
-  }
-</style>

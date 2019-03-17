@@ -40,12 +40,29 @@ const user = {
         throw new Error(error)
       }
     },
+    async setUser({ commit, dispath, }, payload) {
+      try {
+        const response = await axios.post('user_data', payload)
+        
+        await dispatch('user/getUser')
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
     async getCard({ commit, }) {
       try {
         const response = await axios.get('cards')
         commit('setCard', response.data)
       } catch (error) {
         throw new Error(error)
+      }
+    },
+    async logout({ commit, }) {
+      try {
+        await axios.get('?__type=18')
+        document.location = '/login'
+      } catch (error) {
+
       }
     },
   },

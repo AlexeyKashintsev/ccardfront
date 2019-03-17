@@ -25,5 +25,10 @@ export default new Router({
       name: 'History',
       component: () => import(/* webpackChunkName: 'history' */ './pages/History.vue'),
     },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import(/* webpackChunkName: 'profile' */ './pages/Profile.vue'),
+    },
   ],
 })
