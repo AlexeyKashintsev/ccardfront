@@ -13,7 +13,7 @@ const history = {
   actions: {
     async getHistory({ commit, }, post) {
       try {
-        const response = await axios.post('user_history', { params: post, })
+        const response = await axios.get('user_history', { params: post, })
         commit('setHistory', response.data)
       } catch (error) {
         throw new Error(error)
