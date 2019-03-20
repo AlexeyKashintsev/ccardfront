@@ -31,8 +31,10 @@
         readonly
       ></v-text-field>
     </v-form>
-
-    <UserCards v-if="card" />
+    
+    <div v-for="card in cards" :key="card.c_number">
+      <UserCards :card="card" />
+    </div>
   </div>
 </template>
 
@@ -96,7 +98,7 @@ export default {
   },
   computed: {
     ...mapState({
-      card: state => state.user.card,
+      cards: state => state.user.card,
     }),
   },
   methods: {

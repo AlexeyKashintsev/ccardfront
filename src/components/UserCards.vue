@@ -26,7 +26,7 @@
 import CardInfo from 'card-info'
 export default {
   props: {
-    cards: Array,
+    card: Object,
   },
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
     },
   },
   mounted() {
-    this.cardNumber = 371331730661007
+    this.cardNumber = this.card.c_number;
   },
 };
 </script>
