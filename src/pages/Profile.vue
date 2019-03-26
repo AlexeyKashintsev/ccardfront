@@ -41,30 +41,10 @@
 </template>
 
 <script>
-import Cleave from 'cleave.js'
-
 import { mapState, } from 'vuex'
-
-const cleave = {
-  name: 'cleave',
-  bind(el, binding) {
-    const input = el.querySelector('input')
-    input._vCleave = new Cleave(input, binding.value)
-  },
-  update(el, binding) {
-    const input = el.querySelector('input')
-    input._vCleave.destroy()
-    input._vCleave = new Cleave(input, binding.value)
-  },
-  unbind(el) {
-    const input = el.querySelector('input')
-    input._vCleave.destroy()
-  },
-}
 
 export default {
   name: 'Profile',
-  directives: { cleave, },
   data() {
     return {
       name: '',
@@ -73,19 +53,6 @@ export default {
       phone: '',
       snils: '',
       value: '',
-      rawValue: '',
-      masks: {
-        snils: { 
-          delimiters: ['-', '-', ' ',],
-          blocks: [3, 3, 3, 2,],
-          numericOnly: true,
-        },
-        phone: {
-          delimiters: ['+7 (', ')', ' ', '-', '-',],
-          blocks: [0, 3, 0, 3, 3, 2,],
-          numericOnly: true,
-        },
-      },
       valid: false,
       nameRules: [
         v => !!v || 'ФИО обязательно',
@@ -98,9 +65,6 @@ export default {
     }
   },
   methods: {
-    getRawValue(event) {
-      this.rawValue = event.target._vCleave.getRawValue()
-    },
     save() {
       if (!this.valid) return
 

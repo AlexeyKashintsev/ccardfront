@@ -32,40 +32,35 @@
       ></v-text-field>
     </v-form>
     
-    <div v-for="card in cards" :key="card.c_number">
-      <UserCards :card="card" />
+    <h2>Мои карты</h2>
+
+    <div class="mb-3" v-if="cards">
+      <div v-for="card in cards" :key="card.c_number">
+        <UserCards :card="card" />
+      </div>
     </div>
+
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <template v-slot:activator="{ on }">
+        <v-btn color="primary" dark v-on="on">Добавить карту</v-btn>
+      </template>
+
+      <AddCard @close="dialog = false"></AddCard>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import UserCards from '@/components/UserCards.vue';
-import Cleave from 'cleave.js'
+import AddCard from '@/components/AddCard.vue';
 
 import { mapState, } from 'vuex'
 
-const cleave = {
-  name: 'cleave',
-  bind(el, binding) {
-    const input = el.querySelector('input')
-    input._vCleave = new Cleave(input, binding.value)
-  },
-  update(el, binding) {
-    const input = el.querySelector('input')
-    input._vCleave.destroy()
-    input._vCleave = new Cleave(input, binding.value)
-  },
-  unbind(el) {
-    const input = el.querySelector('input')
-    input._vCleave.destroy()
-  },
-}
-
 export default {
   name: 'home',
-  directives: { cleave, },
   components: {
     UserCards,
+    AddCard,
   },
   data() {
     return {
@@ -94,21 +89,17 @@ export default {
           numericOnly: true,
         },
       },
+      dialog: false,
     }
   },
   computed: {
     ...mapState({
-      cards: state => state.user.card,
+      cards: state => state.card.card,
     }),
-  },
-  methods: {
-    getRawValue(event) {
-      this.rawValue = event.target._vCleave.getRawValue()
-    },
   },
   mounted() {
     //this.$store.dispatch('user/getUser')
-    this.$store.dispatch('user/getCard')
+    this.$store.dispatch('card/getCard')
   },
 };
 </script>

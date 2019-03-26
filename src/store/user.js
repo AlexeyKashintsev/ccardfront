@@ -4,7 +4,6 @@ const user = {
   namespaced: true,
   state: {
     user: null,
-    card: null,
   },
   getters: {
     login(state) {
@@ -27,9 +26,6 @@ const user = {
     setUser(state, data) {
       state.user = data
     },
-    setCard(state, data) {
-      state.card = data
-    },
   },
   actions: {
     async getUser({ commit, }) {
@@ -45,14 +41,6 @@ const user = {
         const response = await axios.post('user_data', payload)
         
         await dispatch('user/getUser')
-      } catch (error) {
-        throw new Error(error)
-      }
-    },
-    async getCard({ commit, }) {
-      try {
-        const response = await axios.get('cards')
-        commit('setCard', response.data)
       } catch (error) {
         throw new Error(error)
       }

@@ -16,9 +16,28 @@
         <div>{{ cardInfo.numberNice }}</div>
       </div>
     </div>
-    <div>
-      <v-btn>Изменить</v-btn>
-    </div>
+
+    <v-spacer></v-spacer>
+
+    <v-menu bottom left>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          v-on="on"
+        >
+          <v-icon>more_vert</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-tile @click="editCard">
+          <v-list-tile-title>Сделать главной</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="editCard">
+          <v-list-tile-title>Удалить</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
   </v-sheet>
 </template>
 
@@ -48,6 +67,14 @@ export default {
         brandsLogosPath: 'static/img/brands-logos/',
         brandLogoPolicy: 'colored',
       })
+    },
+  },
+  methods: {
+    deleteCard() {
+      //await this.$store.dispatch('card/deleteCard', card.id)
+    },
+    setMainCard() {
+      //await this.$store.dispatch('card/setMainCard', card.id)
     },
   },
   mounted() {
