@@ -40,6 +40,14 @@ const card = {
         throw new Error(error)
       }
     },
+    async pay({ commit, store, }, payload) {
+      try {
+        //const response = await axios.post('pay', { card: payload })
+        return true
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
   },
 }
 

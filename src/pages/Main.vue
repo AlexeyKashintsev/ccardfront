@@ -32,6 +32,8 @@
       ></v-text-field>
     </v-form>
     
+    <Debt />
+    
     <h2>Мои карты</h2>
 
     <div class="mb-3" v-if="cards">
@@ -53,6 +55,7 @@
 <script>
 import UserCards from '@/components/UserCards.vue';
 import AddCard from '@/components/AddCard.vue';
+import Debt from '@/components/Debt.vue';
 
 import { mapState, } from 'vuex'
 
@@ -61,6 +64,7 @@ export default {
   components: {
     UserCards,
     AddCard,
+    Debt,
   },
   data() {
     return {

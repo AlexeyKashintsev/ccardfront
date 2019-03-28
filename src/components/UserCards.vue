@@ -30,10 +30,10 @@
       </template>
 
       <v-list>
-        <v-list-tile @click="editCard">
+        <v-list-tile @click="setMainCard">
           <v-list-tile-title>Сделать главной</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="editCard">
+        <v-list-tile @click="deleteCard">
           <v-list-tile-title>Удалить</v-list-tile-title>
         </v-list-tile>
       </v-list>
