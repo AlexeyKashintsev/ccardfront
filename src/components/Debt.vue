@@ -1,10 +1,10 @@
 <template>
-  <v-flex v-if="debt">
+  <v-flex v-if="debt && debt.debtSum > 0">
     <h2>Мои задолжности</h2>
     <v-expansion-panel>
       <v-expansion-panel-content>
         <template v-slot:header>
-          <div>Задолженость: 20</div>
+          <div>Задолженость: {{ debt.debtSum }}</div>
           <v-spacer></v-spacer>
           <div class="text-xs-right">
             <v-dialog v-model="dialog" persistent max-width="600px">
@@ -12,7 +12,7 @@
                 <v-btn color="primary" @click.stop="" dark v-on="on">Погасить</v-btn>
               </template>
 
-              <PayCard @close="dialog = false" :debt="debt.debdSum"></PayCard>
+              <PayCard @close="dialog = false" :debt="debt.debtSum"></PayCard>
             </v-dialog>
           </div>
         </template>
