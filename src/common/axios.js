@@ -4,7 +4,8 @@ let instance = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
   withCredentials: true,
   headers: {
-    'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
   },
 })
 
