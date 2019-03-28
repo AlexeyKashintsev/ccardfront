@@ -4,7 +4,7 @@
     <v-expansion-panel>
       <v-expansion-panel-content>
         <template v-slot:header>
-          <div>Задолженость: {{ debt.debtSum }}</div>
+          <div>Задолженность: {{ debt.debtSum }}</div>
           <v-spacer></v-spacer>
           <div class="text-xs-right">
             <v-dialog v-model="dialog" persistent max-width="600px">

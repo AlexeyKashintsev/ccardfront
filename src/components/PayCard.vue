@@ -27,7 +27,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="blue darken-1" flat @click="close">Отмена</v-btn>
-      <v-btn color="blue darken-1" flat @click="pay">Оплатиь</v-btn>
+      <v-btn color="blue darken-1" flat @click="pay">Оплатить</v-btn>
     </v-card-actions>
   </v-card>
 </template>
