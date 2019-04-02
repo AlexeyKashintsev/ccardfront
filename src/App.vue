@@ -4,6 +4,7 @@
     <AdminLayout>
       <router-view/>
     </AdminLayout>
+    <notifications group="alert" />
   </div>
 </template>
 
@@ -11,8 +12,8 @@
 import AdminLayout from '@/layouts/Admin'
 export default {
   components: {
-    AdminLayout,
-  },
+    AdminLayout
+  }
 }
 </script>
 

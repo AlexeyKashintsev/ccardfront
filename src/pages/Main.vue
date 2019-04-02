@@ -37,7 +37,7 @@
     <h2>Мои карты</h2>
 
     <div class="mb-3" v-if="cards">
-      <div v-for="card in cards" :key="card.c_number">
+      <div v-for="card in cards" :key="card.id">
         <UserCards :card="card" />
       </div>
     </div>

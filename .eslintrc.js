@@ -12,7 +12,13 @@ module.exports = {
     "quotes": ["error", "single"],
 
     // override default options for rules from base configurations
-    "comma-dangle": ["error", "always"],
+    "comma-dangle": ["error", {
+      "arrays": "never",
+      "objects": "never",
+      "imports": "never",
+      "exports": "never",
+      "functions": "ignore"
+  }],
     "no-cond-assign": ["error", "always"],
   },
   parserOptions: {

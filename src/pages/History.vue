@@ -54,6 +54,7 @@
     </v-layout>
 
     <v-data-table
+      v-if="history"
       :headers="headers"
       :items="history"
       class="elevation-1"
@@ -144,6 +145,7 @@ export default {
         records_limit: this.recordsLimit,
         page: this.page,
       }
+      console.log(post)
 
       this.$store.dispatch('history/getHistory', post)
     },

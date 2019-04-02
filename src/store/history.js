@@ -14,6 +14,7 @@ const history = {
     async getHistory({ commit, }, post) {
       try {
         const response = await axios.get('user_history', { params: post, })
+        respose = 
         commit('setHistory', response.data)
       } catch (error) {
         throw new Error(error)

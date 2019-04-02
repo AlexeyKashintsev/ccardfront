@@ -3,15 +3,15 @@ import axios from '@/common/axios'
 const card = {
   namespaced: true,
   state: {
-    card: null,
+    card: null
   },
   mutations: {
     setCard(state, data) {
       state.card = data
-    },
+    }
   },
   actions: {
-    async getCard({ commit, }) {
+    async getCard({ commit }) {
       try {
         const response = await axios.get('cards')
         commit('setCard', response.data)
@@ -19,36 +19,36 @@ const card = {
         throw new Error(error)
       }
     },
-    async addCard({ commit, }, payload) {
+    async addCard({ commit }, payload) {
       try {
         const response = await axios.post('cards', payload)
       } catch (error) {
         throw new Error(error)
       }
     },
-    async deleteCard({ commit, }, payload) {
+    async deleteCard({ commit }, payload) {
       try {
         const response = await axios.delete('cards', payload)
       } catch (error) {
         throw new Error(error)
       }
     },
-    async setMainCard({ commit, }, payload) {
+    async setMainCard({ commit }, payload) {
       try {
-        const response = await axios.delete('cards', payload)
+        const response = await axios.put('cards', payload)
       } catch (error) {
         throw new Error(error)
       }
     },
-    async pay({ commit, store, }, payload) {
+    async pay({ commit, store }, payload) {
       try {
         //const response = await axios.post('pay', { card: payload })
         return true
       } catch (error) {
         throw new Error(error)
       }
-    },
-  },
+    }
+  }
 }
 
 export default card

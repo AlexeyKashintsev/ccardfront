@@ -45,41 +45,57 @@
 import CardInfo from 'card-info'
 export default {
   props: {
-    card: Object,
+    card: Object
   },
   data() {
     return {
       cardInfo: null,
-      cardNumber: '',
+      cardNumber: ''
     }
   },
   computed: {
     bankLogo() {
       if (!this.cardInfo || !this.cardInfo.bankLogo) return ''
       
-      return { backgroundImage: `url(${this.cardInfo.bankLogo})`, }
-    },
+      return { backgroundImage: `url(${this.cardInfo.bankLogo})` }
+    }
   },
   watch: {
     cardNumber(val) {
       this.cardInfo = new CardInfo(val, {
         banksLogosPath: 'static/img/banks-logos/',
         brandsLogosPath: 'static/img/brands-logos/',
-        brandLogoPolicy: 'colored',
+        brandLogoPolicy: 'colored'
       })
-    },
+    }
   },
   methods: {
-    deleteCard() {
-      //await this.$store.dispatch('card/deleteCard', card.id)
+    async deleteCard() {
+      try {
+        await this.$store.dispatch('card/deleteCard', {cardId: this.card.id})
+      } catch (error) {
+        this.$notify({
+          group: 'alert',
+          type: 'error',
+          text: 'Не удалось удалить!'
+        });
+      }
     },
-    setMainCard() {
-      //await this.$store.dispatch('card/setMainCard', card.id)
-    },
+    async setMainCard() {
+      try {
+        await this.$store.dispatch('card/setMainCard', {cardId: this.card.id})
+      } catch (error) {
+        this.$notify({
+          group: 'alert',
+          type: 'error',
+          text: 'Не удалось сделать главной!'
+        });
+      }
+    }
   },
   mounted() {
     this.cardNumber = this.card.c_number;
-  },
+  }
 };
 </script>
 

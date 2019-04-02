@@ -4,10 +4,13 @@ import router from './router'
 import store from './store'
 import axios from './common/axios'
 import VueProgressBar from 'vue-progressbar'
+import Notifications from 'vue-notification'
 import Vuetify from 'vuetify'
 
 import 'vuetify/dist/vuetify.min.css'
 import 'material-icons/iconfont/material-icons.css'
+
+Vue.use(Notifications)
 
 Vue.use(Vuetify, {
   theme: {
@@ -17,8 +20,8 @@ Vue.use(Vuetify, {
     info: '#0D47A1',
     warning: '#ffb300',
     error: '#B71C1C',
-    success: '#2196F3',
-  },
+    success: '#2196F3'
+  }
 })
 
 Vue.use(VueProgressBar, {
@@ -28,11 +31,11 @@ Vue.use(VueProgressBar, {
   transition: {
     speed: '0.2s',
     opacity: '0.6s',
-    termination: 300,
+    termination: 300
   },
   autoRevert: true,
   location: 'top',
-  inverse: false,
+  inverse: false
 })
 
 axios.interceptors.request.use(function (config) {
@@ -55,5 +58,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')
