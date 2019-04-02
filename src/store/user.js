@@ -48,7 +48,7 @@ const user = {
     async logout({ commit, }) {
       try {
         await axios.get('?__type=18')
-        document.location = '/'
+        document.location = '/lk'
       } catch (error) {
 
       }
