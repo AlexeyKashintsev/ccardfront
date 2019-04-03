@@ -2,16 +2,16 @@
   <v-flex>
     <h1>Мои льготы</h1>
     <v-data-table
+      v-if="benefits"
       :headers="headers"
       :items="benefits"
       class="elevation-1"
       hide-actions
     >
       <template v-slot:items="props">
-        <td>{{ props.item.benefit_name }}</td>
-        <td>{{ props.item.benefit_region }}</td>
-        <td>{{ props.item.benefit_count }}</td>
-        <td>{{ props.item.benefit_end_date }}</td>
+        <td>{{ props.item.mszName }}</td>
+        <td>{{ props.item.mszTerritoryName }}</td>
+        <td>{{ props.item.endDate }}</td>
       </template>
     </v-data-table>
   </v-flex>
@@ -25,20 +25,20 @@ export default {
       headers: [
         {
           text: 'Наименование льготы',
-          value: 'benefit_name',
+          value: 'mszName',
           sortable: false
         },
         {
           text: 'Регион действия',
-          value: 'benefit_region'
+          value: 'mszTerritoryName'
         },
-        {
-          text: 'Количество',
-          value: 'benefit_count'
-        },
+        // {
+        //   text: 'Количество',
+        //   value: 'benefit_count'
+        // },
         {
           text: 'Дата окончания действия',
-          value: 'benefit_end_date'
+          value: 'endDate'
         }
       ]
     }
