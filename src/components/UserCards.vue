@@ -14,6 +14,7 @@
       <div>
         <div class="bank-name">{{ cardInfo.bankName }}</div>
         <div>{{ cardInfo.numberNice }}</div>
+        <div class="cart__ismain" v-if="cardInfo.main">Главная карта</div>
       </div>
     </div>
 
@@ -55,7 +56,7 @@ export default {
   },
   computed: {
     bankLogo() {
-      if (!this.cardInfo || !this.cardInfo.bankLogo) return ''
+      if (!this.cardInfo || !this.cardInfo.bankLogo) return 'backgroundImage: `url(default-credit-card'
       
       return { backgroundImage: `url(${this.cardInfo.bankLogo})` }
     }
@@ -110,6 +111,7 @@ export default {
   align-items: center;
 }
 .brand-logo {
+  min-width: 80px;
   margin-right: 16px;
 
   img {
@@ -120,5 +122,8 @@ export default {
 .bank-name {
   font-size: 20px;
   font-weight: bold;
+}
+.cart__ismain {
+  font-size: 13px;
 }
 </style>
