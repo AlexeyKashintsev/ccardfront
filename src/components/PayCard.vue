@@ -27,7 +27,13 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="blue darken-1" flat @click="close">Отмена</v-btn>
-      <v-btn color="blue darken-1" flat @click="pay">Оплатить</v-btn>
+      <v-btn 
+        color="blue darken-1" 
+        flat 
+        @click="pay"
+        :loading="loading"
+        :disabled="loading"
+      >Оплатить</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -51,7 +57,8 @@ export default {
       number: '',
       month: '',
       year: '',
-      cvv: ''
+      cvv: '',
+      loading: false
     }
   },
   methods: {
@@ -60,21 +67,31 @@ export default {
     },
     async pay() {
       let post = {
-        owner: this.name.toLocaleUpperCase(),
-        number: this.number,
-        expiryDate: {
-          month: this.month,
-          year: this.year,
-          CVV2: this.cvv
+        debtSum: debt.debtSum,
+        card: {
+          owner: this.name.toLocaleUpperCase(),
+          number: this.number,
+          expiryDate: {
+            month: this.month,
+            year: this.year,
+            CVV2: this.cvv
+          }
         }
       }
       
       try {
-        await this.$store.dispatch('card/pay', post)
-        await this.$store.dispatch('debt/getDebt')
+        this.loading = true
+        const pay = await this.$store.dispatch('card/pay', post)
+        const debt = await this.$store.dispatch('debt/getDebt')
         this.close()
       } catch (error) {
-        alert(error)
+        this.$notify({
+          group: 'alert',
+          type: 'error',
+          text: 'Оплата не прошла!'
+        });
+      } finally {
+        this.loading = false
       }
     }
   }

@@ -42,8 +42,7 @@ const card = {
     },
     async pay({ commit, store }, payload) {
       try {
-        //const response = await axios.post('pay', { card: payload })
-        return true
+        const response = await axios.post('pay', { card: payload })
       } catch (error) {
         throw new Error(error)
       }
