@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import { mapState, } from 'vuex'
-import { format, isValid, startOfDay, isBefore, isEqual, endOfDay, } from 'date-fns'
+import { mapState } from 'vuex'
+import { format, isValid, startOfDay, isBefore, isEqual, endOfDay } from 'date-fns'
 export default {
   data() {
     return {
@@ -93,44 +93,44 @@ export default {
         {
           text: 'Тип',
           value: 'commodity',
-          sortable: false,
+          sortable: false
         },
         {
           text: 'Организация',
-          value: 'provider',
+          value: 'provider'
         },
         {
           text: 'Дата/Время',
-          value: 'dateTime',
+          value: 'dateTime'
         },
         {
           text: 'Льготы',
-          value: 'benefit',
+          value: 'benefit'
         },
         {
           text: 'Дополнительно',
-          value: 'cart',
-        },
-      ],
+          value: 'cart'
+        }
+      ]
     }
   },
   computed: {
     ...mapState({
-      history: state => state.history.history,
+      history: state => state.history.history
     }),
     periodStartFormatted() {
       return this.periodStart ? format(this.periodStart, 'DD-MM-YYYY') : ''
     },
     periodEndFormatted() {
       return this.periodStart ? format(this.periodEnd, 'DD-MM-YYYY') : ''
-    },
+    }
   },
   filters: {
     formatDate(value) {
       if (!value || !isValid(new Date(value))) return ''
 
       return format(value, 'DD/MM/YYYY')
-    },
+    }
   },
   methods: {
     search() {
@@ -143,9 +143,8 @@ export default {
         period_start: periodStart.toISOString(),
         period_end: periodEnd.toISOString(),
         records_limit: this.recordsLimit,
-        page: this.page,
+        page: this.page
       }
-      console.log(post)
 
       this.$store.dispatch('history/getHistory', post)
     },
@@ -156,10 +155,10 @@ export default {
     },
     validateDate(value) {
       return !!(!value || !isValid(new Date(value)))
-    },
+    }
   },
   mounted() {
     this.search()
-  },
+  }
 }
 </script>

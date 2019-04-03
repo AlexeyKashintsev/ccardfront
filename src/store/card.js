@@ -28,14 +28,14 @@ const card = {
     },
     async deleteCard({ commit }, payload) {
       try {
-        const response = await axios.delete('cards', payload)
+        const response = await axios.delete('cards', { params: payload })
       } catch (error) {
         throw new Error(error)
       }
     },
     async setMainCard({ commit }, payload) {
       try {
-        const response = await axios.put('cards', payload)
+        const response = await axios.put('cards', { params: payload })
       } catch (error) {
         throw new Error(error)
       }

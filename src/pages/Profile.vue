@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState, } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Profile',
@@ -56,12 +56,12 @@ export default {
       valid: false,
       nameRules: [
         v => !!v || 'ФИО обязательно',
-        v => (v && v.length >= 5) || 'ФИО не может быть меньше 5 символов',
+        v => (v && v.length >= 5) || 'ФИО не может быть меньше 5 символов'
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
+      ]
     }
   },
   methods: {
@@ -73,10 +73,10 @@ export default {
         login: this.login,
         email: this.email,
         snils: this.snils,
-        phone: this.phone,
+        phone: this.phone
       }
       this.$store.dispatch('user/setUser', post)
-    },
+    }
   },
   mounted() {
     this.$store.dispatch('user/getUser')
@@ -86,6 +86,6 @@ export default {
     this.email = this.$store.getters['user/email']
     this.snils = this.$store.getters['user/snils']
     this.phone = this.$store.getters['user/phone']
-  },
+  }
 };
 </script>

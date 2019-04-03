@@ -8,27 +8,27 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: 'main',
+      redirect: 'main'
     },
     {
       path: '/main',
       name: 'Main',
-      component: Main,
+      component: Main
     },
     {
       path: '/privilegies',
       name: 'Privilegies',
-      component: () => import(/* webpackChunkName: 'privilegies' */ './pages/Privilegies.vue'),
+      component: () => import(/* webpackChunkName: 'privilegies' */ './pages/Privilegies.vue')
     },
     {
       path: '/history',
       name: 'History',
-      component: () => import(/* webpackChunkName: 'history' */ './pages/History.vue'),
+      component: () => import(/* webpackChunkName: 'history' */ './pages/History.vue')
     },
     {
       path: '/profile',
       name: 'Profile',
-      component: () => import(/* webpackChunkName: 'profile' */ './pages/Profile.vue'),
-    },
-  ],
+      component: () => import(/* webpackChunkName: 'profile' */ './pages/Profile.vue')
+    }
+  ]
 })

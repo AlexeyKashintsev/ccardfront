@@ -1,4 +1,5 @@
 const path = require('path')
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -25,5 +26,8 @@ module.exports = {
       // extracted common chunks and vendor chunks.
       //chunks: ['chunk-vendors', 'chunk-common', 'index']
     },
+  },
+  configureWebpack: (config) => {
+    config.plugins.push(new VuetifyLoaderPlugin());
   }
 }

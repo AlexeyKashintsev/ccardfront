@@ -6,7 +6,7 @@ import debt from './debt'
 import benefits from './benefits'
 import history from './history'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
@@ -14,6 +14,6 @@ export default new Vuex.Store({
     card,
     debt,
     benefits,
-    history,
-  },
+    history
+  }
 })

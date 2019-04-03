@@ -33,17 +33,17 @@
 </template>
 
 <script>
-import { mask, } from 'vue-the-mask'
+import { mask } from 'vue-the-mask'
 export default {
   name: 'pay-cart',
   directives: {
-    mask,
+    mask
   },
   props: {
     debt: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
       number: '',
       month: '',
       year: '',
-      cvv: '',
+      cvv: ''
     }
   },
   methods: {
@@ -65,8 +65,8 @@ export default {
         expiryDate: {
           month: this.month,
           year: this.year,
-          CVV2: this.cvv,
-        },
+          CVV2: this.cvv
+        }
       }
       
       try {
@@ -76,7 +76,7 @@ export default {
       } catch (error) {
         alert(error)
       }
-    },
-  },
+    }
+  }
 }
 </script>

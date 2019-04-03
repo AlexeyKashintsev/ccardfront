@@ -53,18 +53,18 @@
 </template>
 
 <script>
-import UserCards from '@/components/UserCards.vue';
-import AddCard from '@/components/AddCard.vue';
-import Debt from '@/components/Debt.vue';
+import UserCards from '@/components/UserCards.vue'
+import AddCard from '@/components/AddCard.vue'
+import Debt from '@/components/Debt.vue'
 
-import { mapState, } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
   components: {
     UserCards,
     AddCard,
-    Debt,
+    Debt
   },
   data() {
     return {
@@ -78,34 +78,34 @@ export default {
       rawValue: '',
       masks: {
         snils: { 
-          delimiters: ['-', '-', ' ',],
-          blocks: [3, 3, 3, 2,],
-          numericOnly: true,
+          delimiters: ['-', '-', ' '],
+          blocks: [3, 3, 3, 2],
+          numericOnly: true
         },
         phone: {
-          delimiters: ['+7 (', ')', ' ', '-', '-',],
-          blocks: [0, 3, 0, 3, 3, 2,],
-          numericOnly: true,
+          delimiters: ['+7 (', ')', ' ', '-', '-'],
+          blocks: [0, 3, 0, 3, 3, 2],
+          numericOnly: true
         },
         email: {
-          delimiters: ['.', '.', '-',],
-          blocks: [3, 3, 3, 2,],
-          numericOnly: true,
-        },
+          delimiters: ['.', '.', '-'],
+          blocks: [3, 3, 3, 2],
+          numericOnly: true
+        }
       },
-      dialog: false,
+      dialog: false
     }
   },
   computed: {
     ...mapState({
-      cards: state => state.card.card,
-    }),
+      cards: state => state.card.card
+    })
   },
   mounted() {
     //this.$store.dispatch('user/getUser')
     this.$store.dispatch('card/getCard')
-  },
-};
+  }
+}
 </script>
 
 <style>

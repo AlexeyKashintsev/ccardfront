@@ -30,18 +30,18 @@
 </template>
 
 <script>
-import { mask, } from 'vue-the-mask'
+import { mask } from 'vue-the-mask'
 export default {
   name: 'add-cart',
   directives: {
-    mask,
+    mask
   },
   data() {
     return {
       name: '',
       number: '',
       month: '',
-      year: '',
+      year: ''
     }
   },
   methods: {
@@ -54,13 +54,13 @@ export default {
         number: this.number,
         expiryDate: {
           month: this.month,
-          year: this.year,
-        },
+          year: this.year
+        }
       }
       
       await this.$store.dispatch('card/addCard', post)
-    },
-  },
+    }
+  }
 }
 </script>
 

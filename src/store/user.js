@@ -3,7 +3,7 @@ import axios from '@/common/axios'
 const user = {
   namespaced: true,
   state: {
-    user: null,
+    user: null
   },
   getters: {
     login(state) {
@@ -20,15 +20,15 @@ const user = {
     },
     email(state) {
       return state.user ? state.user.email : ''
-    },
+    }
   },
   mutations: {
     setUser(state, data) {
       state.user = data
-    },
+    }
   },
   actions: {
-    async getUser({ commit, }) {
+    async getUser({ commit }) {
       try {
         const response = await axios.get('user_data')
         commit('setUser', response.data)
@@ -36,7 +36,7 @@ const user = {
         throw new Error(error)
       }
     },
-    async setUser({ commit, dispath, }, payload) {
+    async setUser({ commit, dispath }, payload) {
       try {
         const response = await axios.post('user_data', payload)
         
@@ -45,15 +45,15 @@ const user = {
         throw new Error(error)
       }
     },
-    async logout({ commit, }) {
+    async logout({ commit }) {
       try {
         await axios.get('?__type=18')
         document.location = '/lk'
       } catch (error) {
 
       }
-    },
-  },
+    }
+  }
 }
 
 export default user

@@ -26,30 +26,30 @@
 
 <script>
 import PayCard from '@/components/PayCard.vue';
-import { mapState, } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'main-debt',
   components: {
-    PayCard,
+    PayCard
   },
   data() {
     return {
-      dialog: false,
+      dialog: false
     }
   },
   methods: {
     pay() {
 
-    },
+    }
   },
   computed: {
     ...mapState({
-      debt: state => state.debt.debt,
-    }),
+      debt: state => state.debt.debt
+    })
   },
   mounted() {
     this.$store.dispatch('debt/getDebt')
-  },
+  }
 }
 </script>
 

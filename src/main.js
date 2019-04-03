@@ -5,7 +5,7 @@ import store from './store'
 import axios from './common/axios'
 import VueProgressBar from 'vue-progressbar'
 import Notifications from 'vue-notification'
-import Vuetify from 'vuetify'
+import Vuetify, { VLayout } from 'vuetify/lib'
 
 import 'vuetify/dist/vuetify.min.css'
 import 'material-icons/iconfont/material-icons.css'

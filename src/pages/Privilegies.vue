@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapState, } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -26,30 +26,30 @@ export default {
         {
           text: 'Наименование льготы',
           value: 'benefit_name',
-          sortable: false,
+          sortable: false
         },
         {
           text: 'Регион действия',
-          value: 'benefit_region',
+          value: 'benefit_region'
         },
         {
           text: 'Количество',
-          value: 'benefit_count',
+          value: 'benefit_count'
         },
         {
           text: 'Дата окончания действия',
-          value: 'benefit_end_date',
-        },
-      ],
+          value: 'benefit_end_date'
+        }
+      ]
     }
   },
   computed: {
     ...mapState({
-      benefits: state => state.benefits.benefits,
-    }),
+      benefits: state => state.benefits.benefits
+    })
   },
   created() {
     return this.$store.dispatch('benefits/getBenefits')
-  },
+  }
 }
 </script>

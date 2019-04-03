@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapState, } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   data() {
@@ -64,37 +64,37 @@ export default {
         {
           action: 'assignment_ind',
           title: 'Мои данные',
-          pathName: 'Main',
+          pathName: 'Main'
         },
         {
           action: 'grade',
           title: 'Мои льготы',
-          pathName: 'Privilegies',
+          pathName: 'Privilegies'
         },
         {
           action: 'recent_actors',
           title: 'История',
-          pathName: 'History',
-        },
-      ],
+          pathName: 'History'
+        }
+      ]
     }
   },
   computed: {
     ...mapState({
-      user: state => state.user.user,
+      user: state => state.user.user
     }),
     getName() {
       return this.user && (this.user.name || this.user.login) || 'Профиль'
-    },
+    }
   },
   methods: {
     logout() {
       this.$store.dispatch('user/logout')
-    },
+    }
   },
   created() {
     this.$store.dispatch('user/getUser')
-  },
+  }
 }
 </script>
 
