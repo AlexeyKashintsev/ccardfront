@@ -36,11 +36,11 @@ const user = {
         throw new Error(error)
       }
     },
-    async setUser({ commit, dispath }, payload) {
+    async setUser({ commit, dispatch }, payload) {
       try {
         const response = await axios.post('user_data', payload)
         
-        await dispatch('user/getUser')
+        await dispatch('getUser')
       } catch (error) {
         throw new Error(error)
       }
