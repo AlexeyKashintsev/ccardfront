@@ -1,6 +1,6 @@
 <template>
   <v-flex v-if="debt && debt.debtSum > 0">
-    <h2>Мои задолжности</h2>
+    <h2>Мои задолженности</h2>
     <v-expansion-panel>
       <v-expansion-panel-content>
         <template v-slot:header>
