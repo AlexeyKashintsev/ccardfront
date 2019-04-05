@@ -17,7 +17,27 @@
           </div>
         </template>
         <v-card>
-          <v-card-text class="grey lighten-3">text</v-card-text>
+          <v-card-text class="grey lighten-3">
+            <v-data-table
+              v-if="debt.operations"
+              :headers="headers"
+              :items="debt.operations"
+              class="elevation-1"
+              hide-actions
+            >
+              <template v-slot:items="props">
+                <td>{{ props.item.commodity }}</td>
+                <td>{{ props.item.provider }}</td>
+                <td>{{ props.item.dateTime | formatDate }}</td>
+                <td>{{ props.item.benefit && props.item.benefit.mszName }}</td>
+                <td>
+                  <div v-for="item in props.item.cart" :key="item.id">
+                    - {{ item.itemName }}
+                  </div>
+                </td>
+              </template>
+            </v-data-table>
+          </v-card-text>
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -25,8 +45,9 @@
 </template>
 
 <script>
-import PayCard from '@/components/PayCard.vue';
 import { mapState } from 'vuex'
+import { format, isValid } from 'date-fns'
+import PayCard from '@/components/PayCard.vue';
 export default {
   name: 'main-debt',
   components: {
@@ -34,12 +55,42 @@ export default {
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      headers: [
+        {
+          text: 'Тип',
+          value: 'commodity',
+          sortable: false
+        },
+        {
+          text: 'Организация',
+          value: 'provider'
+        },
+        {
+          text: 'Дата/Время',
+          value: 'dateTime'
+        },
+        {
+          text: 'Льготы',
+          value: 'benefit'
+        },
+        {
+          text: 'Дополнительно',
+          value: 'cart'
+        }
+      ]
     }
   },
   methods: {
     pay() {
 
+    }
+  },
+  filters: {
+    formatDate(value) {
+      if (!value || !isValid(new Date(value))) return ''
+
+      return format(value, 'DD/MM/YYYY')
     }
   },
   computed: {
