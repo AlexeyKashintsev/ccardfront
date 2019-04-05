@@ -14,7 +14,7 @@
       <div>
         <div class="bank-name">{{ cardInfo.bankName }}</div>
         <div>{{ cardInfo.numberNice }}</div>
-        <div class="cart__ismain" v-if="cardInfo.main">Главная карта</div>
+        <div class="cart__ismain" v-if="card.main">Главная карта</div>
       </div>
     </div>
 
