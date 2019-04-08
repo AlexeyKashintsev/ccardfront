@@ -14,7 +14,10 @@
       <div>
         <div class="bank-name">{{ cardInfo.bankName }}</div>
         <div>{{ cardInfo.numberNice }}</div>
-        <div class="cart__ismain" v-if="card.main">Главная карта</div>
+        <div class="cart__ismain" v-if="card.main">
+          <v-icon color="yellow">grade</v-icon>
+          <span class="cart__ismain-text">Главная карта</span>
+        </div>
       </div>
     </div>
 
@@ -125,5 +128,9 @@ export default {
 }
 .cart__ismain {
   font-size: 13px;
+}
+.cart__ismain-text,
+.cart__ismain .v-icon {
+  vertical-align: middle;
 }
 </style>
