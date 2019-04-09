@@ -13,7 +13,7 @@
       </div>
       <div>
         <div class="bank-name">{{ cardInfo.bankName }}</div>
-        <div>{{ cardInfo.numberNice }}</div>
+        <div>{{ card.c_number }}</div>
         <div class="cart__ismain" v-if="card.main">
           <v-icon color="yellow">grade</v-icon>
           <span class="cart__ismain-text">Главная карта</span>
@@ -66,7 +66,8 @@ export default {
   },
   watch: {
     cardNumber(val) {
-      this.cardInfo = new CardInfo(val, {
+      let startNumber = val.slice(0, 4);
+      this.cardInfo = new CardInfo(startNumber, {
         banksLogosPath: 'static/img/banks-logos/',
         brandsLogosPath: 'static/img/brands-logos/',
         brandLogoPolicy: 'colored'
