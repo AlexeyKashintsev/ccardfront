@@ -67,7 +67,7 @@ export default {
     },
     async pay() {
       let post = {
-        debtSum: debt.debtSum,
+        debtSum: this.debt.debtSum,
         card: {
           owner: this.name.toLocaleUpperCase(),
           number: this.number,
