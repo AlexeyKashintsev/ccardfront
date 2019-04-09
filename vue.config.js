@@ -26,7 +26,7 @@ module.exports = {
       // extracted common chunks and vendor chunks.
       //chunks: ['chunk-vendors', 'chunk-common', 'index']
     },
-    login: {
+    loginFailed: {
       entry: 'src/loginFailedPage/main.js',
       template: 'public/login-failed.html',
       filename: 'login-failed.html',
