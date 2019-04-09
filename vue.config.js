@@ -26,6 +26,12 @@ module.exports = {
       // extracted common chunks and vendor chunks.
       //chunks: ['chunk-vendors', 'chunk-common', 'index']
     },
+    login: {
+      entry: 'src/loginFailedPage/main.js',
+      template: 'public/login-failed.html',
+      filename: 'login-failed.html',
+      title: 'Login Page'
+    },
   },
   configureWebpack: (config) => {
     config.plugins.push(new VuetifyLoaderPlugin());
