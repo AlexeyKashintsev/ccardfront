@@ -12,6 +12,7 @@
                 <v-form v-model="valid" action="j_security_check" method="POST" enctype="application/x-www-form-urlencoded" ref="form">
                   <v-text-field
                     label="Логин"
+                    placeholder="Логин"
                     v-model="login"
                     :rules="loginRules"
                     name="j_username"
@@ -19,6 +20,7 @@
                   ></v-text-field>
                   <v-text-field
                     label="Пароль"
+                    placeholder="Пароль"
                     v-model="password"
                     name="j_password"
                     :append-icon="e1 ? 'visibility' : 'visibility_off'"
