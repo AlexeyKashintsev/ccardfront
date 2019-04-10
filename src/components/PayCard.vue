@@ -16,7 +16,7 @@
             <v-text-field label="Месяц" v-model.number="month" v-mask="'##'"></v-text-field>
           </v-flex>
           <v-flex xs6 sm3>
-            <v-text-field label="Год" v-model.number="year" v-mask="'##'"></v-text-field>
+            <v-text-field label="Год" v-model.number="year" v-mask="'####'"></v-text-field>
           </v-flex>
           <v-flex xs6 sm3>
             <v-text-field label="CVV2" type="password" v-model.number="cvv" v-mask="'###'"></v-text-field>
